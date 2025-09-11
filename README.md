@@ -5,7 +5,7 @@ Este proyecto es una API demo para enseñar conceptos de testing con Jest y mock
 ## 📋 Estructura del Proyecto
 
 ```
-testing-class/
+ddsw-testing/
 ├── babel.config.json          # Configuración de Babel para ES6
 ├── package.json               # Dependencias y scripts
 ├── server.js                  # Servidor Express principal
