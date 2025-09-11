@@ -1,0 +1,17 @@
+# Node
+node_modules/
+npm-debug.log*
+.yarn/*
+.pnpm-store/
+coverage/
+.vitest/
+# JetBrains
+.idea/**/workspace.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea
+testing-class.iml
+# OS
+.DS_Store
+Thumbs.db
