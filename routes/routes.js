@@ -1,5 +1,6 @@
 import express from "express";
 import Controller from "../controllers/controller.js";
+import postsRoutes from "./posts.routes.js";
 
 const routes = express();
 
@@ -12,6 +13,8 @@ routes.get("/assignments", (req, res, next) => {
 routes.get("/assignments/:userId", (req, res, next) => {
   Controller.getUserAssignment(req, res, next);
 });
+
+routes.use("/posts", postsRoutes);
 
 routes.use((err, req, res, next) => {
   if (err?.name === "ZodError") {
