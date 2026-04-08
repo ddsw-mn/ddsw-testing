@@ -2,6 +2,7 @@ import axios from "axios";
 import dotenv from 'dotenv';
 
 const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
+const postsBasePath = '/posts'
 dotenv.config({ path: envFile });
 
 export class PostsClient {
@@ -17,19 +18,19 @@ export class PostsClient {
     }
 
     getPosts() {
-        return this.http.get(`/posts`).then(res => ({data: res.data, status: res.status}));
+        return this.http.get(postsBasePath).then(res => ({data: res.data, status: res.status}));
     }
 
     getPostById(id) {
-        return this.http.get(`/posts/${id}`)
+        return this.http.get(`${postsBasePath}/${id}`)
             .then(res => ({data: res.data, status: res.status}));
     }
 
     createPost(payload) {
-        return this.http.post(`/posts`, payload).then(res => ({data: res.data, status: res.status}));
+        return this.http.post(postsBasePath, payload).then(res => ({data: res.data, status: res.status}));
     }
 
     updatePost(id, payload) {
-        return this.http.patch(`/posts/${id}`, payload).then(res => ({data: res.data, status: res.status}));
+        return this.http.patch(`/${postsBasePath}/${id}`, payload).then(res => ({data: res.data, status: res.status}));
     }
 }
