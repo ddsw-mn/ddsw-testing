@@ -1,0 +1,109 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "Testing Class API",
+    "description": "API demo: assignments (JSONPlaceholder), posts y users mock, y rutas de error.\n\n**Dependencias**\n- `GET /dependency-down` → **503**, cuerpo **texto plano** (sin JSON), cabeceras anti-caché.\n- `GET /dependency-up` → **503**, JSON `{ ok: false, error: { code, title, message, severity, details, timestamp } }`.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Assignments",
+      "item": [
+        {
+          "name": "GET assignments (todos los usuarios con todos)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/assignments"
+          }
+        },
+        {
+          "name": "GET assignments por userId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/assignments/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Posts (mock)",
+      "item": [
+        {
+          "name": "GET posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/posts"
+          }
+        },
+        {
+          "name": "GET post por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/posts/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "POST user (no idempotente — id nuevo cada vez)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ada Lovelace\",\n  \"username\": \"ada\",\n  \"email\": \"ada@example.com\"\n}"
+            },
+            "url": "{{baseUrl}}/users"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Errores / demos",
+      "description": "Rutas pensadas para probar manejo de fallos y formatos de respuesta.",
+      "item": [
+        {
+          "name": "GET dependency-down (503 texto plano)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/dependency-down",
+            "description": "Respuesta **503** en **text/plain** (`503 Service Unavailable`). Sin JSON. Incluye cabeceras `Cache-Control`, `Pragma`, `Expires` para evitar caché."
+          }
+        },
+        {
+          "name": "GET dependency-up (503 JSON estructurado)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/dependency-up",
+            "description": "Respuesta **503** con JSON:\n\n```json\n{\n  \"ok\": false,\n  \"error\": {\n    \"code\": \"DEPENDENCY_HEALTH_CHECK_FAILED\",\n    \"title\": \"Dependencia no disponible\",\n    \"message\": \"…\",\n    \"severity\": \"high\",\n    \"details\": {\n      \"dependencyId\": \"upstream-primary\",\n      \"endpointChecked\": \"/health\",\n      \"attempts\": 3,\n      \"lastError\": \"timeout_exceeded\"\n    },\n    \"timestamp\": \"…ISO8601…\"\n  }\n}\n```"
+          }
+        }
+      ]
+    }
+  ]
+}
