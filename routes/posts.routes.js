@@ -1,22 +1,20 @@
 import { Router } from "express";
-import PostsController from "../controllers/posts.controller.js";
 
-const postsRouter = Router();
+const router = Router();
 
-postsRouter.get("/", (req, res, next) => {
-  PostsController.getPosts(req, res, next);
+router.get("/", (req, res) => {
+  res.status(200).json([
+    { id: 1, title: "Mock post 1", userId: 1 },
+    { id: 2, title: "Mock post 2", userId: 1 }
+  ]);
 });
 
-postsRouter.get("/:postId", (req, res, next) => {
-  PostsController.getPostById(req, res, next);
+router.get("/:id", (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(id)) {
+    return res.status(400).json({ error: "Invalid id" });
+  }
+  res.status(200).json({ id, title: `Mock post ${id}`, body: "Lorem ipsum", userId: 1 });
 });
 
-postsRouter.post("/", (req, res, next) => {
-  PostsController.createPost(req, res, next);
-});
-
-postsRouter.patch("/:postId", (req, res, next) => {
-  PostsController.updatePost(req, res, next);
-});
-
-export default postsRouter;
+export default router;
