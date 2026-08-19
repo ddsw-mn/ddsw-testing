@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const courseController = require('../src/controllers/course.controller');
+const courseController = require('../controllers/course.controller');
 
 const router = Router();
 
@@ -38,29 +38,6 @@ router.patch( /* completar aquí */ '', courseController.update);
 // DELETE
 //// Eliminar un determinado COURSE
 router.delete( /* completar aquí */ '', courseController.remove);
-
-module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Otras operaciones
 router.post('/courses', courseController.create);

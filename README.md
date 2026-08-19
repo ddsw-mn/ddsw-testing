@@ -136,3 +136,6 @@ Todos los errores tienen el formato:
 - Eliminar un alumno remueve automáticamente su ID de todos los cursos (`studentIds`).
 - Los GET de cursos siempre incluyen el array `students` con objetos Student completos (no IDs crudos).
 - Los nuevos IDs se generan con `crypto.randomUUID()` (built-in de Node.js, sin dependencias extra).
+
+## Postman
+En `utn.postman_collection.json` cuentan con una colección de ejemplo para probar y tomar como referencia.

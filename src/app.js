@@ -3,7 +3,7 @@ const express = require('express');
 // Seed in-memory data before any route is registered
 require('./db/seed');
 
-const apiRoutes = require('../routes/routes');
+const apiRoutes = require('./routes/routes');
 
 const app = express();
 

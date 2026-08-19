@@ -1,0 +1,169 @@
+{
+  "info": {
+    "_postman_id": "fcd168b8-c565-4f89-9c22-48a46d621d28",
+    "name": "utn",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54269421",
+    "_collection_link": "https://go.postman.co/collection/54269421-fcd168b8-c565-4f89-9c22-48a46d621d28?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "students",
+      "item": [
+        {
+          "name": "/students",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/students/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/students/:id_estudiante",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                ":id_estudiante"
+              ],
+              "variable": [
+                {
+                  "key": "id_estudiante",
+                  "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/admin",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/admin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "admin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/students",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n        \"firstName\": \"Lionel\",\n        \"lastName\": \"Messi\",\n        \"email\": \"lionel.messi@mail.com\",\n        \"age\": 39,\n        \"enrollmentYear\": 2006,\n        \"major\": \"Ingeniería en Futbol\"\n    }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/students",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/students/:id",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"Lucía\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/students/:id_estudiante",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                ":id_estudiante"
+              ],
+              "variable": [
+                {
+                  "key": "id_estudiante",
+                  "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/students/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/students/:id_estudiante",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "students",
+                ":id_estudiante"
+              ],
+              "variable": [
+                {
+                  "key": "id_estudiante",
+                  "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
