@@ -139,3 +139,55 @@ Todos los errores tienen el formato:
 
 ## Postman
 En `utn.postman_collection.json` cuentan con una colección de ejemplo para probar y tomar como referencia.
+
+---
+
+## Testing
+
+```bash
+npm test
+```
+
+Corre las suites de Jest en `__tests__/` (mocking de `axios`/`dotenv`, sin llamadas reales a APIs externas).
+
+## CI/CD (GitHub Actions)
+
+### `.github/workflows/ci-cd.yml` — CI + publicación de imagen
+
+- **`test`**: en cada push (a cualquier rama), instala dependencias (`npm ci`) y corre `npm test`.
+- **`build-and-push`**: sólo si `test` pasó en verde y el push fue a `master` (o se dispara manualmente con `workflow_dispatch`), construye la imagen Docker y la publica.
+
+Para que `build-and-push` funcione hay que cargar dos secrets en el repo (**Settings → Secrets and variables → Actions**):
+
+| Secret               | Valor                          |
+|----------------------|---------------------------------|
+| `DOCKERHUB_USERNAME` | usuario de Docker Hub          |
+| `DOCKERHUB_TOKEN`    | access token de Docker Hub     |
+
+### `.github/workflows/pr-checks.yml` — gate de Pull Requests a `master`
+
+Se dispara al abrir, reabrir o actualizar un PR contra `master`:
+
+- **`test`**: corre `npm test` sobre el código del PR.
+- **`no-unresolved-comments`**: usa la API GraphQL de GitHub (vía `actions/github-script`) para chequear que no queden *review threads* sin resolver. Si hay comentarios de revisión abiertos, el job falla.
+
+Para que estos checks bloqueen el botón de mergear hay que marcarlos como **required status checks** en una branch protection rule sobre `master` (**Settings → Branches → Add rule**). Alternativa nativa de GitHub (sin necesidad de este job): activar directamente la opción **"Require conversation resolution before merging"** en esa misma regla.
+
+## Docker
+
+```bash
+# Construir la imagen
+docker build -t courses-students-api:1.0 .
+
+# Levantar el contenedor
+docker run -p 3000:3000 courses-students-api:1.0
+
+# Ver contenedores corriendo
+docker ps
+
+# Ver logs
+docker logs <container_id>
+
+# Entrar a una shell dentro del contenedor
+docker exec -it <container_id> sh
+```

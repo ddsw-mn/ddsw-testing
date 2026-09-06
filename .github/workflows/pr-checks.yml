@@ -1,0 +1,48 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+
+  no-unresolved-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const query = `
+              query($owner: String!, $repo: String!, $pr: Int!) {
+                repository(owner: $owner, name: $repo) {
+                  pullRequest(number: $pr) {
+                    reviewThreads(first: 100) {
+                      nodes { isResolved }
+                    }
+                  }
+                }
+              }`;
+            const result = await github.graphql(query, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pr: context.issue.number,
+            });
+            const threads = result.repository.pullRequest.reviewThreads.nodes;
+            const unresolved = threads.filter((t) => !t.isResolved);
+            if (unresolved.length > 0) {
+              core.setFailed(
+                `Hay ${unresolved.length} comentario(s) de revisión sin resolver. Resolvelos antes de mergear.`
+              );
+            } else {
+              console.log("No hay comentarios sin resolver.");
+            }
